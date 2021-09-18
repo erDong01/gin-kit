@@ -47,7 +47,7 @@ func main() {
 
 func Handler() {
 	// 直到register ok
-	head := rpc3.RpcHead{Code: 100, ActorName: "UserPrcoess"}
+	head := rpc.RpcHead{Code: 100, ActorName: "UserPrcoess"}
 	byteD := rpc.Marshal(head, "C_G_LogoutRequest", "test", 88, 88, 88)
 	CLIENT.Send(head, byteD)
 }

@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"github.com/erDong01/micro-kit/actor"
 	"github.com/erDong01/micro-kit/cluster/common"
-	"github.com/erDong01/micro-kit/pb/rpc3"
+	"github.com/erDong01/micro-kit/rpc"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"log"
 )
@@ -40,13 +40,13 @@ func (this *Master) BindActor(pActor actor.IActor) {
 }
 
 func (this *Master) addService(info *common.ClusterInfo) {
-	this.actor.SendMsg(rpc3.RpcHead{}, "cluster_add", info)
+	this.actor.SendMsg(rpc.RpcHead{}, "cluster_add", info)
 	this.serviceMap[info.Id()] = info
 }
 
 func (this *Master) delService(info *common.ClusterInfo) {
 	delete(this.serviceMap, info.Id())
-	this.actor.SendMsg(rpc3.RpcHead{}, "Cluster_Del", info)
+	this.actor.SendMsg(rpc.RpcHead{}, "Cluster_Del", info)
 }
 
 func NodeToService(val []byte) *common.ClusterInfo {

@@ -101,11 +101,13 @@ ParsePacket:
 }
 
 func (this *PacketParser) Write(dat []byte) []byte {
+	// get len
 	msgLen := len(dat)
 
 	if msgLen+this.PacketLen > tools.MAX_PACKET {
 		fmt.Println("write over base.MAX_PACKET")
 	}
+
 	msg := make([]byte, this.PacketLen+msgLen)
 
 	switch this.PacketLen {

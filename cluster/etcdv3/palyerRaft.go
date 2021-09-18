@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/erDong01/micro-kit/pb/rpc3"
+	"github.com/erDong01/micro-kit/rpc"
 	clientv3 "go.etcd.io/etcd/client/v3"
 	"log"
 	"sync"
@@ -20,7 +20,7 @@ type (
 		m_Client       *clientv3.Client
 		m_Lease        clientv3.Lease
 		m_PlayerLocker *sync.RWMutex
-		m_PlayerMap    map[int64]*rpc3.PlayerClusterInfo
+		m_PlayerMap    map[int64]*rpc.PlayerClusterInfo
 	}
 )
 
@@ -38,7 +38,7 @@ func (this *PlayerRaft) Init(endpoints []string) {
 	this.m_Client = etcdClient
 	this.m_Lease = lease
 	this.m_PlayerLocker = &sync.RWMutex{}
-	this.m_PlayerMap = map[int64]*rpc3.PlayerClusterInfo{}
+	this.m_PlayerMap = map[int64]*rpc.PlayerClusterInfo{}
 	this.Start()
 	this.InitPlayers()
 }
@@ -47,7 +47,7 @@ func (this *PlayerRaft) Start() {
 	go this.Run()
 }
 
-func (this *PlayerRaft) Publish(info *rpc3.PlayerClusterInfo) bool {
+func (this *PlayerRaft) Publish(info *rpc.PlayerClusterInfo) bool {
 	leaseResp, err := this.m_Lease.Grant(context.Background(), OFFLINE_TIME)
 	if err == nil {
 		leaseId := leaseResp.ID
@@ -70,7 +70,7 @@ func (this *PlayerRaft) Lease(leaseId int64) error {
 	return err
 }
 
-func (this *PlayerRaft) addPlayer(info *rpc3.PlayerClusterInfo) {
+func (this *PlayerRaft) addPlayer(info *rpc.PlayerClusterInfo) {
 	this.m_PlayerLocker.Lock()
 	pPlayer, bOk := this.m_PlayerMap[info.Id]
 	if !bOk {
@@ -81,13 +81,13 @@ func (this *PlayerRaft) addPlayer(info *rpc3.PlayerClusterInfo) {
 	this.m_PlayerLocker.Unlock()
 }
 
-func (this *PlayerRaft) delPlayer(info *rpc3.PlayerClusterInfo) {
+func (this *PlayerRaft) delPlayer(info *rpc.PlayerClusterInfo) {
 	this.m_PlayerLocker.Lock()
 	delete(this.m_PlayerMap, int64(info.Id))
 	this.m_PlayerLocker.Unlock()
 }
 
-func (this *PlayerRaft) GetPlayer(Id int64) *rpc3.PlayerClusterInfo {
+func (this *PlayerRaft) GetPlayer(Id int64) *rpc.PlayerClusterInfo {
 	this.m_PlayerLocker.RLock()
 	pPlayer, bEx := this.m_PlayerMap[Id]
 	this.m_PlayerLocker.RUnlock()
@@ -123,8 +123,8 @@ func (this *PlayerRaft) InitPlayers() {
 	}
 }
 
-func NodeToPlayer(val []byte) *rpc3.PlayerClusterInfo {
-	info := &rpc3.PlayerClusterInfo{}
+func NodeToPlayer(val []byte) *rpc.PlayerClusterInfo {
+	info := &rpc.PlayerClusterInfo{}
 	err := json.Unmarshal([]byte(val), info)
 	if err != nil {
 		log.Print(err)

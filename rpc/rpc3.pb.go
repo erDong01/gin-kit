@@ -4,7 +4,7 @@
 // 	protoc        v3.17.0
 // source: rpc3.proto
 
-package rpc3
+package rpc
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -510,8 +510,8 @@ type ClusterInfo struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type     SERVICE `protobuf:"varint,1,opt,name=Type,proto3,enum=rpc.SERVICE" json:"Type,omitempty"`
-	Ip       string  `protobuf:"bytes,2,opt,name=Ip,proto3" json:"Ip,omitempty"`
+	Type SERVICE `protobuf:"varint,1,opt,name=Type,proto3,enum=rpc.SERVICE" json:"Type,omitempty"`
+	Ip   string  `protobuf:"bytes,2,opt,name=Ip,proto3" json:"Ip,omitempty"`
 	Port     int32   `protobuf:"varint,3,opt,name=Port,proto3" json:"Port,omitempty"`
 	Weight   int32   `protobuf:"varint,4,opt,name=Weight,proto3" json:"Weight,omitempty"`
 	SocketId uint32  `protobuf:"varint,5,opt,name=SocketId,proto3" json:"SocketId,omitempty"`

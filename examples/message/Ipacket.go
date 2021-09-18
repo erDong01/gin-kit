@@ -27,7 +27,7 @@ type (
 	}
 )
 
-func BuildPacketHead(id int64, destservertype rpc3.SERVICE) *Ipacket {
+func BuildPacketHead(id int64, destservertype rpc.SERVICE) *Ipacket {
 	ipacket := &Ipacket{
 		Stx:            Default_Ipacket_Stx,
 		DestServerType: SERVICE(destservertype),
@@ -116,17 +116,17 @@ func Init() {
 	initCrcNames()
 	//注册消息
 	//PacketHead 中的 DestServerType 决定转发到那个服务器
-	RegisterPacket(&C_A_LoginRequest{PacketHead: BuildPacketHead(0, rpc3.SERVICE_GATESERVER)})
-	RegisterPacket(&C_G_LoginResquest{PacketHead: BuildPacketHead(0, rpc3.SERVICE_GATESERVER)})
-	RegisterPacket(&C_A_RegisterRequest{PacketHead: BuildPacketHead(0, rpc3.SERVICE_ACCOUNTSERVER)})
-	RegisterPacket(&C_G_LogoutResponse{PacketHead: BuildPacketHead(0, rpc3.SERVICE_GATESERVER)})
-	RegisterPacket(&C_W_CreatePlayerRequest{PacketHead: BuildPacketHead(0, rpc3.SERVICE_WORLDSERVER)})
-	RegisterPacket(&C_W_Game_LoginRequset{PacketHead: BuildPacketHead(0, rpc3.SERVICE_WORLDSERVER)})
-	RegisterPacket(&C_W_ChatMessage{PacketHead: BuildPacketHead(0, rpc3.SERVICE_WORLDSERVER)})
+	RegisterPacket(&C_A_LoginRequest{PacketHead: BuildPacketHead(0, rpc.SERVICE_GATESERVER)})
+	RegisterPacket(&C_G_LoginResquest{PacketHead: BuildPacketHead(0, rpc.SERVICE_GATESERVER)})
+	RegisterPacket(&C_A_RegisterRequest{PacketHead: BuildPacketHead(0, rpc.SERVICE_ACCOUNTSERVER)})
+	RegisterPacket(&C_G_LogoutResponse{PacketHead: BuildPacketHead(0, rpc.SERVICE_GATESERVER)})
+	RegisterPacket(&C_W_CreatePlayerRequest{PacketHead: BuildPacketHead(0, rpc.SERVICE_WORLDSERVER)})
+	RegisterPacket(&C_W_Game_LoginRequset{PacketHead: BuildPacketHead(0, rpc.SERVICE_WORLDSERVER)})
+	RegisterPacket(&C_W_ChatMessage{PacketHead: BuildPacketHead(0, rpc.SERVICE_WORLDSERVER)})
 
-	RegisterPacket(&C_Z_LoginCopyMap{PacketHead: BuildPacketHead(0, rpc3.SERVICE_ZONESERVER)})
-	RegisterPacket(&C_Z_Move{PacketHead: BuildPacketHead(0, rpc3.SERVICE_ZONESERVER)})
-	RegisterPacket(&C_Z_Skill{PacketHead: BuildPacketHead(0, rpc3.SERVICE_ZONESERVER)})
+	RegisterPacket(&C_Z_LoginCopyMap{PacketHead: BuildPacketHead(0, rpc.SERVICE_ZONESERVER)})
+	RegisterPacket(&C_Z_Move{PacketHead: BuildPacketHead(0, rpc.SERVICE_ZONESERVER)})
+	RegisterPacket(&C_Z_Skill{PacketHead: BuildPacketHead(0, rpc.SERVICE_ZONESERVER)})
 }
 
 //client消息回调

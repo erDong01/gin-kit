@@ -44,12 +44,12 @@ func (this *ClientSocket) Start() bool {
 	return true
 }
 
-func (this *ClientSocket) SendMsg(head rpc3.RpcHead, funcName string, params ...interface{}) int {
+func (this *ClientSocket) SendMsg(head rpc.RpcHead, funcName string, params ...interface{}) int {
 	buff := rpc.Marshal(head, funcName, params...)
 	return this.Send(head, buff)
 }
 
-func (this *ClientSocket) Send(head rpc3.RpcHead, buff []byte) int {
+func (this *ClientSocket) Send(head rpc.RpcHead, buff []byte) int {
 	defer func() {
 		if err := recover(); err != nil {
 			wrong.TraceCode(err)

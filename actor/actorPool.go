@@ -1,7 +1,6 @@
 package actor
 
 import (
-	"github.com/erDong01/micro-kit/pb/rpc3"
 	"github.com/erDong01/micro-kit/rpc"
 	"sync"
 )
@@ -58,11 +57,11 @@ func (this *ActorPool) GetActorNum() int {
 func (this *ActorPool) BoardCast(funcName string, params ...interface{}) {
 	this.ActorLock.RLock()
 	for _, v := range this.ActorMap {
-		v.SendMsg(rpc3.RpcHead{}, funcName, params...)
+		v.SendMsg(rpc.RpcHead{}, funcName, params...)
 	}
 	this.ActorLock.RUnlock()
 }
-func (this *ActorPool) SendMsg(head rpc3.RpcHead, funcName string, params ...interface{}) {
+func (this *ActorPool) SendMsg(head rpc.RpcHead, funcName string, params ...interface{}) {
 	buff := rpc.Marshal(head, funcName, params...)
 	head.SocketId = 0
 	if head.Id != 0 {
@@ -75,7 +74,7 @@ func (this *ActorPool) SendMsg(head rpc3.RpcHead, funcName string, params ...int
 	this.Send(head, buff)
 }
 
-func (this *ActorPool) PacketFunc(packet rpc3.Packet) bool {
+func (this *ActorPool) PacketFunc(packet rpc.Packet) bool {
 	rpcPacket, head := rpc.UnmarshalHead(packet.Buff)
 	if this.FindCall(rpcPacket.FuncName) != nil {
 		head.SocketId = packet.Id

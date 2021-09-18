@@ -70,7 +70,7 @@ func (this *ServerSocketClient) Start() bool {
 	}
 	return true
 }
-func (this *ServerSocketClient) Send(head rpc3.RpcHead, buff []byte) int {
+func (this *ServerSocketClient) Send(head rpc.RpcHead, buff []byte) int {
 	defer func() {
 		if err := recover(); err != nil {
 			wrong.TraceCode(err)
@@ -98,7 +98,7 @@ func (this *ServerSocketClient) DoSend(buff []byte) int {
 	n, err := this.Conn.Write(this.packetParser.Write(buff))
 
 	handleError(err)
-	fmt.Println("发送成功条数:", n)
+	fmt.Println("发送成功:", n)
 	if n > 0 {
 		return n
 	}
@@ -202,12 +202,12 @@ func (this *ServerSocketClient) SendLoop() bool {
 	return true
 }
 
-func (this *ServerSocketClient) SendPacket(head rpc3.RpcHead, funcName string, packet proto.Message) int {
+func (this *ServerSocketClient) SendPacket(head rpc.RpcHead, funcName string, packet proto.Message) int {
 	buff := rpc.MarshalPacket(head, funcName, packet)
-	return this.Send(rpc3.RpcHead{}, buff)
+	return this.Send(rpc.RpcHead{}, buff)
 }
 
-func (this *ServerSocketClient) SendMsg(head rpc3.RpcHead, funcName string, params ...interface{}) int {
+func (this *ServerSocketClient) SendMsg(head rpc.RpcHead, funcName string, params ...interface{}) int {
 	buff := rpc.Marshal(head, funcName, params...)
 	return this.Send(head, buff)
 }
