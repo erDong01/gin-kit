@@ -2,11 +2,7 @@ syntax = "proto3";
 
 package rpc;
 
-option go_package = "../rpc3";
-
-service TestService {
-  rpc TestSon(F) returns (T){}
-}
+option go_package = "../rpc";
 
 message RpcHead{
   int64  Id = 1;
@@ -29,14 +25,6 @@ message RpcPacket{
   bytes RpcBody = 4;
 }
 
-message F{
-  RpcPacket RpcPacket = 1;
-  int32 Id = 2;
-}
-message T{
-  RpcPacket RpcPacket = 1;
-  int32 Id = 2;
-}
 //原始包
 message Packet{
   uint32 Id = 1;//socketid
