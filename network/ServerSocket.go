@@ -2,7 +2,6 @@ package network
 
 import (
 	"fmt"
-	"github.com/erDong01/micro-kit/pb/rpc3"
 	"github.com/erDong01/micro-kit/rpc"
 	"log"
 	"net"

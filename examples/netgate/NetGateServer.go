@@ -5,7 +5,7 @@ import (
 	"github.com/erDong01/micro-kit/cluster/common"
 	"github.com/erDong01/micro-kit/examples/message"
 	"github.com/erDong01/micro-kit/network"
-	"github.com/erDong01/micro-kit/pb/rpc3"
+	"github.com/erDong01/micro-kit/rpc"
 	"github.com/erDong01/micro-kit/tools"
 	"time"
 )

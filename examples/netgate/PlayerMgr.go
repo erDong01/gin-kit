@@ -3,7 +3,7 @@ package netgate
 import (
 	"context"
 	"github.com/erDong01/micro-kit/actor"
-	"github.com/erDong01/micro-kit/pb/rpc3"
+	"github.com/erDong01/micro-kit/rpc"
 	"github.com/erDong01/micro-kit/wrong"
 	"log"
 	"sync"

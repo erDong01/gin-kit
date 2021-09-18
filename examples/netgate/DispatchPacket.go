@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/gob"
 	"github.com/erDong01/micro-kit/examples/message"
-	"github.com/erDong01/micro-kit/pb/rpc3"
 	"github.com/erDong01/micro-kit/rpc"
 	"github.com/erDong01/micro-kit/wrong"
 	"google.golang.org/protobuf/proto"
